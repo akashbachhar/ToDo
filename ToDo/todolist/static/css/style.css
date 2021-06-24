@@ -1,0 +1,106 @@
+html {
+    height: 100vh;
+    background-image: linear-gradient(135deg, #5EFCE8 10%, #736EFE 100%);
+    background-repeat: no-repeat;
+    font-family: 'helvetica neue', serif;
+    color: #001F4A;
+    background-attachment: fixed;
+}
+
+.box {
+    width: 25rem;
+    margin: 3rem auto auto;
+    border-radius: 0.5rem;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+.heading {
+    background-color: #d0163b;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-family: serif;
+    text-align: center;
+}
+
+.todo {
+    padding: 0 1rem 1rem 1rem;
+    background-color: #fff;
+}
+
+.tasklist {
+    display: flex;
+    align-items: center;
+    min-height: 4rem;
+    border-bottom: 1px solid #F1F1F1;
+    font-size: 1.2rem;
+}
+
+input:checked + p {
+    text-decoration: line-through;
+    text-decoration-color: #736EFE;
+}
+
+input[type="checkbox"] {
+    margin-right: 1rem;
+}
+
+p {
+    display: inline-block;
+}
+
+.button {
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.btn-edit {
+    margin-left: auto;
+}
+
+.taskform {
+    padding: 2rem 0 1rem 0;
+}
+
+input[type='text'] {
+    outline: 0;
+    border: none;
+    width: 89%;
+    text-align: center;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #736EFE;
+}
+
+.addTaskButton {
+    background-color: rgb(4, 216, 163);
+    color: #fff;
+    font-weight: bold;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    border: none;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.footer a {
+    text-decoration: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .box {
+        width: 80vw;
+    }
+
+    input[type='text'] {
+        width: 85%;
+    }
+}

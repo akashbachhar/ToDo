@@ -1,0 +1,88 @@
+<script>
+
+    //Inserting task
+
+    $("#addTask").click(function () {
+        let output = "";
+        let taskid = $("#hiddenId").val();
+        let task = $("#taskid").val();
+        let csrf = $("input[name = csrfmiddlewaretoken]").val();
+        let myData = {taskid: taskid, todo: task, csrfmiddlewaretoken: csrf};
+
+        if (task === "") {
+            console.log("Please Type a Task !");
+        } else {
+            $.ajax({
+                url: "{% url 'saveTask' %}",
+                method: "POST",
+                data: myData,
+                success: function (data) {
+                    if (data.status === 1) {
+                        let todo = data.todoData;
+                        $("form")[0].reset();
+
+                        for (let i = 0; i < todo.length; i++) {
+                            output += "<div class='tasklist'> <input type='checkbox'> <p> " + todo[i].todo + "</p> <input type='button' data-sid=" + todo[i].id + " value='🖌' class='button btn-edit' " + "/>" + "<input type='button' data-sid=" + todo[i].id + " value='❌' class='button btn-del' " + "/> </div>"
+                        }
+
+                        $("#todolist").html(output);
+                        $("#hiddenId").val('');
+                        $("form")[0].reset()
+                    }
+
+                    if (data.status === 0) {
+                        console.log("Form Submitted Failled !");
+                        $("#hiddenId").val('');
+                        $("form")[0].reset()
+                    }
+
+                },
+            })
+        }
+    });
+
+    // Deleting Task
+
+    $("#todolist").on("click", ".btn-del", function () {
+        let id = $(this).attr("data-sid");
+        let csrf = $("input[name = csrfmiddlewaretoken]").val();
+
+        myData = {sid: id, csrfmiddlewaretoken: csrf};
+        mythis = this;
+
+        $.ajax({
+            url: "{% url 'deleteTask' %}",
+            method: "POST",
+            data: myData,
+            success: function (data) {
+                if (data.status === 1) {
+                    $(mythis).closest(".tasklist").fadeOut();
+                }
+
+                if (data.status === 0) {
+                    console.log("Something Went Wrong !");
+                }
+            }
+        });
+    });
+
+    // Editing Task
+
+    $("#todolist").on("click", ".btn-edit", function () {
+        let id = $(this).attr("data-sid");
+        let csrf = $("input[name = csrfmiddlewaretoken]").val();
+
+        myData = {sid: id, csrfmiddlewaretoken: csrf};
+
+        $.ajax({
+            url: "{% url 'editTask' %}",
+            method: "POST",
+            data: myData,
+            success: function (data) {
+                $("#hiddenId").val(data.id);
+                $("#taskid").val(data.task);
+            }
+        });
+    });
+
+</script>
