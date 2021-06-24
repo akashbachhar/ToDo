@@ -1,2 +1,2 @@
 # ToDo-Django
-ToDo CRUD
+ToDo CRUD Using Django and AJAX
